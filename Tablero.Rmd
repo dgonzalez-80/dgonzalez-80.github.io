@@ -20,6 +20,8 @@ library(readxl)
 
 require(raster)
 library(RSocrata)
+library(DT)
+
 
 token <- "ew2rEMuESuzWPqMkyPfOSGJgE"
 df.ins <- read.socrata("https://www.datos.gov.co/resource/gt2j-8ykr.json", app_token = token)
@@ -30,7 +32,7 @@ mapa=readOGR("~/R/Proyecto Natalia/depto/depto.shp",stringsAsFactors=FALSE)
 Column {data-width=600}
 -----------------------------------------------------------------------
 
-### Reporte de hoy
+### Reporte a la fecha
 
 ```{r}
 df.ins$codigo=NA
@@ -69,16 +71,17 @@ rownames(tabla)=c("Antioquia",
     "Vaupes",
     "Vichada", 
     "San Andres P.y Sta C.")
-
-tabla
+colnames(tabla)=c("En casa", "Fallec.", "Hospital.", "En UCI", "NA", "Recuperados")
+ tabla
 ```
 
-Column {data-width=650}
+Column {data-width=650} 
 -----------------------------------------------------------------------
 
-### Total infectados
+### Fallecidos por departamento 
 
 ```{r}
+
 mapa$casa=tabla[,1]
 mapa$fall=tabla[,2]
 mapa$hosp=tabla[,3]
@@ -86,7 +89,7 @@ mapa$uci=tabla[,4]
 mapa$recup=tabla[,6]
 mapa$inf=tabla[,1]+tabla[,3]+tabla[,4]+tabla[,5]
 col <- rev(heat.colors(26))
-spplot(mapa[,7], main="Fallecidos a la  fecha por departamento",
+spplot(mapa[,7],
        col.regions=col)
 ```
 
