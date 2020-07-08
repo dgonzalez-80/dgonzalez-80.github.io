@@ -1,0 +1,92 @@
+---
+title: "Covid-19 Colombia"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(sf)
+library(ggplot2)
+library(tmap)
+library(tmaptools)
+library(leaflet)
+library(dplyr)
+library(rgdal)
+library(sp)
+library(readxl)
+
+require(raster)
+library(RSocrata)
+
+token <- "ew2rEMuESuzWPqMkyPfOSGJgE"
+df.ins <- read.socrata("https://www.datos.gov.co/resource/gt2j-8ykr.json", app_token = token)
+mapa=readOGR("~/R/Proyecto Natalia/depto/depto.shp",stringsAsFactors=FALSE)
+
+```
+
+Column {data-width=600}
+-----------------------------------------------------------------------
+
+### Reporte de hoy
+
+```{r}
+df.ins$codigo=NA
+df.ins$codigo=trunc(as.numeric(df.ins$c_digo_divipola)/1000)
+tabla=table(df.ins$codigo,df.ins$atenci_n)
+rownames(tabla)=c("Antioquia",
+    "Atlantico",
+    "Bogota D.C",
+    "Bolivar", 
+    "Boyaca",
+    "Caldas",
+    "Caquetá",
+    "Cauca",
+    "Cesar",
+    "Cordoba",
+    "Cundinamarca",
+    "Chocó", 
+    "Huila",
+    "La Guajira",
+    "Magdalena",
+    "Meta", 
+    "Nariño",
+    "Norte De Santander",  
+    "Quindio",
+    "Risaralda", 
+    "Santander",
+    "Sucre", 
+    "Tolima",
+    "Valle del Cauca",
+    "Arauca",
+    "Casanare",
+    "Putumayo",
+    "Amazonas",     
+    "Guainia",
+    "Guaviare",
+    "Vaupes",
+    "Vichada", 
+    "San Andres P.y Sta C.")
+
+tabla
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Total infectados
+
+```{r}
+mapa$casa=tabla[,1]
+mapa$fall=tabla[,2]
+mapa$hosp=tabla[,3]
+mapa$uci=tabla[,4]
+mapa$recup=tabla[,6]
+mapa$inf=tabla[,1]+tabla[,3]+tabla[,4]+tabla[,5]
+
+spplot(mapa[,7])
+```
+
+
