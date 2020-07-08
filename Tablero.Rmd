@@ -85,8 +85,9 @@ mapa$hosp=tabla[,3]
 mapa$uci=tabla[,4]
 mapa$recup=tabla[,6]
 mapa$inf=tabla[,1]+tabla[,3]+tabla[,4]+tabla[,5]
-
-spplot(mapa[,7])
+col <- rev(heat.colors(26))
+spplot(mapa[,7], main="Fallecidos a la  fecha por departamento",
+       col.regions=col)
 ```
 
 
