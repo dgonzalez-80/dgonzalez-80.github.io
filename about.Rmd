@@ -1,3 +1,8 @@
 ---
-title: "About This Website"
+title: "Covid-19 Colombia infectados netos"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
 ---
+

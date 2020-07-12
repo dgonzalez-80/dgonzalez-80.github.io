@@ -6,8 +6,8 @@ output:
     vertical_layout: fill
 ---
 
+
 ```{r setup, include=FALSE}
-devtools::install_github("awhstin/awtools")
 
 library(flexdashboard) # construccion de tableros
 library(sf)
@@ -30,11 +30,6 @@ df.ins <- read.socrata("https://www.datos.gov.co/resource/gt2j-8ykr.json", app_t
 mapa=readOGR("~/R/Proyecto Natalia/depto/depto.shp",stringsAsFactors=FALSE)
 
 ```
-
-Column {data-width=600}
------------------------------------------------------------------------
-
-### Reporte a la fecha
 
 ```{r}
 df.ins$codigo=NA
@@ -74,13 +69,14 @@ rownames(tabla)=c("Antioquia",
     "Vichada", 
     "San Andres P.y Sta C.")
 colnames(tabla)=c("En casa", "Fallec.", "Hospital.", "En UCI", "NA", "Recuperados")
- tabla
 ```
 
-Column {data-width=650} 
------------------------------------------------------------------------
 
-### Fallecidos por departamento 
+
+
+Column {data-width=600}
+-----------------------------------------------------------------------
+### Infectados por departamento
 
 ```{r}
 
@@ -91,8 +87,20 @@ mapa$uci=tabla[,4]
 mapa$recup=tabla[,6]
 mapa$inf=tabla[,1]+tabla[,3]+tabla[,4]+tabla[,5]
 col <- rev(heat.colors(26))
-spplot(mapa[,7],
+spplot(mapa[,11],
        col.regions=col)
 ```
+### Recuperados por departamento
 
+```{r}
 
+mapa$casa=tabla[,1]
+mapa$fall=tabla[,2]
+mapa$hosp=tabla[,3]
+mapa$uci=tabla[,4]
+mapa$recup=tabla[,6]
+mapa$inf=tabla[,1]+tabla[,3]+tabla[,4]+tabla[,5]
+col <- rev(topo.colors(18))
+spplot(mapa[,6],
+       col.regions=col)
+```
