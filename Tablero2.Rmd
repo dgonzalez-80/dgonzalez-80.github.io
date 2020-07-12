@@ -90,6 +90,9 @@ col <- rev(heat.colors(26))
 spplot(mapa[,11],
        col.regions=col)
 ```
+
+Column {data-width=650} 
+-----------------------------------------------------------------------
 ### Recuperados por departamento
 
 ```{r}
