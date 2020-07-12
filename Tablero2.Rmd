@@ -91,7 +91,7 @@ spplot(mapa[,11],
        col.regions=col)
 ```
 
-Column {data-width=650} 
+Column {data-width=600} 
 -----------------------------------------------------------------------
 ### Recuperados por departamento
 
