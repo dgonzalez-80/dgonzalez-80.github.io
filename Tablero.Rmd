@@ -7,8 +7,8 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-devtools::install_github("awhstin/awtools")
-
+#http://www.briansarnacki.com/an-easy-way-to-map-data-in-r-with-plotly/
+# pagina para mapas 
 library(flexdashboard) # construccion de tableros
 library(sf)
 library(ggplot2) # paquete de graficos
@@ -28,7 +28,7 @@ library(DT)
 token <- "ew2rEMuESuzWPqMkyPfOSGJgE"
 df.ins <- read.socrata("https://www.datos.gov.co/resource/gt2j-8ykr.json", app_token = token)
 mapa=readOGR("~/R/Proyecto Natalia/depto/depto.shp",stringsAsFactors=FALSE)
-
+ write.csv(df.ins, file = "df.ins.csv")
 ```
 
 Column {data-width=600}
@@ -75,6 +75,7 @@ rownames(tabla)=c("Antioquia",
     "San Andres P.y Sta C.")
 colnames(tabla)=c("En casa", "Fallec.", "Hospital.", "En UCI", "NA", "Recuperados")
  tabla
+ write.csv(tabla, file = "taba.csv")
 ```
 
 Column {data-width=650} 
