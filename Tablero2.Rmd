@@ -23,7 +23,7 @@ library(readxl)
 require(raster)
 library(RSocrata)
 library(DT)
-
+library(mapview)
 
 token <- "ew2rEMuESuzWPqMkyPfOSGJgE"
 df.ins <- read.socrata("https://www.datos.gov.co/resource/gt2j-8ykr.json", app_token = token)
@@ -86,9 +86,11 @@ mapa$hosp=tabla[,3]
 mapa$uci=tabla[,4]
 mapa$recup=tabla[,6]
 mapa$inf=tabla[,1]+tabla[,3]+tabla[,4]+tabla[,5]
-col <- rev(heat.colors(26))
-spplot(mapa[,11],
-       col.regions=col)
+# col <- rev(heat.colors(26))
+# spplot(mapa[,11],
+#        col.regions=col)
+mapview(mapa[,11])
+
 ```
 
 Column {data-width=600} 
@@ -103,7 +105,10 @@ mapa$hosp=tabla[,3]
 mapa$uci=tabla[,4]
 mapa$recup=tabla[,6]
 mapa$inf=tabla[,1]+tabla[,3]+tabla[,4]+tabla[,5]
-col <- rev(topo.colors(18))
-spplot(mapa[,6],
-       col.regions=col)
+# col <- rev(topo.colors(18))
+# spplot(mapa[,6],
+#       col.regions=col)
+mapview(mapa[,6])
+
+
 ```
