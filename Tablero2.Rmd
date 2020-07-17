@@ -7,78 +7,16 @@ output:
 ---
 
 
-```{r setup, include=FALSE}
-
-library(flexdashboard) # construccion de tableros
-library(sf)
-library(ggplot2) # paquete de graficos
-library(tmap)
-library(tmaptools)
-library(leaflet)
-library(dplyr)
-library(rgdal)
-library(sp)
-library(readxl)
-
-require(raster)
-library(RSocrata)
-library(DT)
-library(mapview)
-
-token <- "ew2rEMuESuzWPqMkyPfOSGJgE"
-df.ins <- read.socrata("https://www.datos.gov.co/resource/gt2j-8ykr.json", app_token = token)
-mapa=readOGR("~/R/Proyecto Natalia/depto/depto.shp",stringsAsFactors=FALSE)
-
-```
-
-```{r}
-df.ins$codigo=NA
-df.ins$codigo=trunc(as.numeric(df.ins$c_digo_divipola)/1000)
-tabla=table(df.ins$codigo,df.ins$atenci_n)
-rownames(tabla)=c("Antioquia",
-    "Atlantico",
-    "Bogota D.C",
-    "Bolivar", 
-    "Boyaca",
-    "Caldas",
-    "Caquetá",
-    "Cauca",
-    "Cesar",
-    "Cordoba",
-    "Cundinamarca",
-    "Chocó", 
-    "Huila",
-    "La Guajira",
-    "Magdalena",
-    "Meta", 
-    "Nariño",
-    "Norte De Santander",  
-    "Quindio",
-    "Risaralda", 
-    "Santander",
-    "Sucre", 
-    "Tolima",
-    "Valle del Cauca",
-    "Arauca",
-    "Casanare",
-    "Putumayo",
-    "Amazonas",     
-    "Guainia",
-    "Guaviare",
-    "Vaupes",
-    "Vichada", 
-    "San Andres P.y Sta C.")
-colnames(tabla)=c("En casa", "Fallec.", "Hospital.", "En UCI", "NA", "Recuperados")
-```
-
-
-
 
 Column {data-width=600}
 -----------------------------------------------------------------------
 ### Infectados por departamento
 
 ```{r}
+library(mapview)
+#df.ins=readRDS("df.ins")
+#tabla=readRDS("tabla.csv")
+
 
 mapa$casa=tabla[,1]
 mapa$fall=tabla[,2]
@@ -89,7 +27,7 @@ mapa$inf=tabla[,1]+tabla[,3]+tabla[,4]+tabla[,5]
 # col <- rev(heat.colors(26))
 # spplot(mapa[,11],
 #        col.regions=col)
-mapview(mapa[,11])
+mapview(mapa[,11], layer.name="Infectados")
 
 ```
 
@@ -108,7 +46,7 @@ mapa$inf=tabla[,1]+tabla[,3]+tabla[,4]+tabla[,5]
 # col <- rev(topo.colors(18))
 # spplot(mapa[,6],
 #       col.regions=col)
-mapview(mapa[,6])
+mapview(mapa[,6], layer.name="recuperados")
 
 
 ```

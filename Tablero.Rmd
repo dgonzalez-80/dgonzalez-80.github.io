@@ -94,14 +94,12 @@ mapa$inf=tabla[,1]+tabla[,3]+tabla[,4]+tabla[,5]
 # col <- rev(heat.colors(26))
 # spplot(mapa[,7],
 #       col.regions=col)
-mapview(mapa[,7])
+mapview(mapa[,7],layer.name="Fallecidos")
 
 ```
 
 
-```{r}
 
-plot_ly(data=mapa)
 
-```
+
 
