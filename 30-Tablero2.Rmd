@@ -1,0 +1,53 @@
+---
+title: "Covid-19 Colombia"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+
+
+Column {data-width=600}
+-----------------------------------------------------------------------
+### Infectados por departamento
+
+```{r}
+library(mapview)
+#df.ins=readRDS("df.ins")
+#tabla=readRDS("tabla.csv")
+
+
+mapa$casa=tabla[,1]
+mapa$fall=tabla[,2]
+mapa$hosp=tabla[,3]
+mapa$uci=tabla[,4]
+mapa$recup=tabla[,6]
+mapa$inf=tabla[,1]+tabla[,3]+tabla[,4]+tabla[,5]
+# col <- rev(heat.colors(26))
+# spplot(mapa[,11],
+#        col.regions=col)
+mapview(mapa[,11], layer.name="Infectados")
+
+```
+
+Column {data-width=600} 
+-----------------------------------------------------------------------
+### Recuperados por departamento
+
+```{r}
+
+mapa$casa=tabla[,1]
+mapa$fall=tabla[,2]
+mapa$hosp=tabla[,3]
+mapa$uci=tabla[,4]
+mapa$recup=tabla[,6]
+mapa$inf=tabla[,1]+tabla[,3]+tabla[,4]+tabla[,5]
+# col <- rev(topo.colors(18))
+# spplot(mapa[,6],
+#       col.regions=col)
+mapview(mapa[,6], layer.name="recuperados",
+        color =mapviewGetOption("vector.palette"))
+
+
+```

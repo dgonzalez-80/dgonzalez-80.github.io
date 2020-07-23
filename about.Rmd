@@ -1,8 +1,34 @@
----
-title: "Covid-19 Colombia infectados netos"
+ ---
+title: "Covid-19 Colombia 2020"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
-    vertical_layout: fill
+    social: menu
+    source_code: embed
 ---
 
+### Fallecidos  durante los  primeros 90 dias
+
+```{r}
+#remotes::install_github("joachim-gassen/tidycovid19")
+
+library(tidycovid19)
+
+merged <- download_merged_data(cached = TRUE, silent = TRUE)
+plot_covid19_spread(
+  merged, highlight = c("ITA", "ESP", "GBR", "FRA", "DEU", "USA", "BRA", "MEX","COL"),
+  intervention = "lockdown"
+)
+```
+
+```{r}
+plot_covid19_stripes(
+  type = "confirmed", 
+  countries = c("ITA", "ESP", "FRA", "GBR", "DEU", "USA", "BRA", "MEX","COL"),
+  sort_countries = "countries"
+)
+```
+
+
+
+Tomado de : https://github.com/joachim-gassen/tidycovid19

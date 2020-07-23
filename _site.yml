@@ -8,6 +8,6 @@ navbar:
     - text: "About"
       href: about.html
     - text: "Covid 19 Colombia "
-      href: Tablero.html
+      href: 20-Tablero1.html
     - text: "Covid 19 Colombia Infectados y  Recuperados"
-      href: Tablero2.html
+      href: 30-Tablero2.html
