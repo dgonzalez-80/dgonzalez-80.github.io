@@ -1,13 +1,12 @@
-name: "my-website"
+name: "dgonzalez-80"
 output_dir: "."
 navbar:
-  title: "My Website"
+  title: "dgonzalez-80"
   left:
     - text: "Home"
       href: index.html
     - text: "About"
       href: about.html
-    - text: "Covid 19 Colombia "
-      href: 20-Tablero1.html
-    - text: "Covid 19 Colombia Infectados y  Recuperados"
-      href: 30-Tablero2.html
+    - text: "Tablero"
+      href: dashboard1.html
+      
