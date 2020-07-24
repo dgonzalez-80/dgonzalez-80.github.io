@@ -14,8 +14,8 @@ Column {data-width=600}
 
 ```{r}
 library(mapview)
-#df.ins=readRDS("df.ins")
-#tabla=readRDS("tabla.csv")
+df.ins=readRDS("data/Colombia.RDS")
+tabla=readRDS("data/tabla.RDS")
 
 
 mapa$casa=tabla[,1]
@@ -47,7 +47,8 @@ mapa$inf=tabla[,1]+tabla[,3]+tabla[,4]+tabla[,5]
 # spplot(mapa[,6],
 #       col.regions=col)
 mapview(mapa[,6], layer.name="recuperados",
-        color =mapviewGetOption("vector.palette"))
+        col.regions = sf.colors)
+    #    color =mapviewGetOption("vector.palette"))
 
 
 ```

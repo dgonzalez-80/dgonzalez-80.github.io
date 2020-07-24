@@ -1,5 +1,5 @@
- ---
-title: "Covid-19 Colombia 2020"
+---
+title: "Número de infectados por dia Covid-19"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -7,28 +7,91 @@ output:
     source_code: embed
 ---
 
-### Fallecidos  durante los  primeros 90 dias
+```{r setup, include=FALSE}
+# interactive time series
+library(dygraphs)
+# create time series objects (class xs)
+library(xts)
 
-```{r}
-#remotes::install_github("joachim-gassen/tidycovid19")
+library(incidence)
 
-library(tidycovid19)
+df.ins.colombia=readRDS("data/Colombia.RDS")
+df.ins.cali=readRDS("data/cali.RDS")
+df.ins.buenaventura=readRDS("data/buenaventura.RDS")
+df.ins.palmira=readRDS("data/palmira.RDS")
 
-merged <- download_merged_data(cached = TRUE, silent = TRUE)
-plot_covid19_spread(
-  merged, highlight = c("ITA", "ESP", "GBR", "FRA", "DEU", "USA", "BRA", "MEX","COL"),
-  intervention = "lockdown"
-)
+
+
+inc.casos.colombia.tipo <- incidence(df.ins.colombia$fecha_sin,
+                            groups = df.ins.colombia$tipo_caso)
+
+
+inc.casos.cali.tipo <- incidence(df.ins.cali$fecha_sin,
+                            groups = df.ins.cali$tipo_caso)
+
+inc.casos.buenaventura.tipo <- incidence(df.ins.buenaventura$fecha_sin,
+                            groups = df.ins.buenaventura$tipo_caso)
+
+inc.casos.palmira.tipo <- incidence(df.ins.palmira$fecha_sin,
+                            groups = df.ins.palmira$tipo_caso)
+
+
+# create time series object
+serie.colombia <- xts(x = inc.casos.colombia.tipo$counts,
+                            order.by = inc.casos.colombia.tipo$dates)
+
+
+# create time series object
+serie.cali <- xts(x = inc.casos.cali.tipo$counts,
+                            order.by = inc.casos.cali.tipo$dates)
+
+# create time series object
+serie.buenaventura <- xts(x = inc.casos.buenaventura.tipo$counts,
+                            order.by = inc.casos.buenaventura.tipo$dates)
+
+# create time series object
+serie.palmira <- xts(x = inc.casos.palmira.tipo$counts,
+                            order.by = inc.casos.palmira.tipo$dates)
+
 ```
 
+Column {.tabset}
+-----------------------------------------------------------------------------
+### Colombia
+
 ```{r}
-plot_covid19_stripes(
-  type = "confirmed", 
-  countries = c("ITA", "ESP", "FRA", "GBR", "DEU", "USA", "BRA", "MEX","COL"),
-  sort_countries = "countries"
-)
+# create a basic interactive element
+plot1_time <- dygraph(serie.colombia) %>% 
+  dyRangeSelector(dateWindow = c("2020-03-03", "2020-07-01"))
+
+plot1_time
+```
+
+### Cali
+
+```{r}
+# create a basic interactive element
+plot2_time <- dygraph(serie.cali) %>% 
+  dyRangeSelector(dateWindow = c("2020-03-03", "2020-07-01"))
+plot2_time
 ```
 
 
+### Buenaventura
 
-Tomado de : https://github.com/joachim-gassen/tidycovid19
+```{r}
+plot3_time <- dygraph(serie.buenaventura) %>% 
+  dyRangeSelector(dateWindow = c("2020-03-03", "2020-07-01"))
+plot3_time
+```
+
+### Palmira
+
+```{r}
+# create a basic interactive element
+plot4_time <- dygraph(serie.palmira) %>% 
+  dyRangeSelector(dateWindow = c("2020-03-03", "2020-07-01"))
+plot4_time
+```
+
+
