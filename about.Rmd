@@ -1,5 +1,5 @@
 ---
-title: "Gráfico dinámicos con R"
+title: "Gráfico con R"
 subtitle : " paquetes: R base, ggplot2, highcharter, plotly, shiny"
 author: "Daniel Enrique González Gómez"
 date: "Febrero 2021"
@@ -27,15 +27,19 @@ library(datasets)  # paquete con grupo de datos
 
 ## Introducción
 
-+ **R**
+Antes de empezar, pencemos en las alternativas que se tienen para utilizar el programa estadistico R.
+  + Instalado en un computador
+      + **R**  
 
-+ **RStudio**
+      + **RStudio**
 
-+ **Rcmdr** (librerias Rcmdr y RcmdrMisc)
+      + **Rcmdr** (librerias Rcmdr y RcmdrMisc)
 
-+ [**RDRR.io**](https://rdrr.io/snippets)
++ Ahora en linea
 
-+ [**Rextexter**](https://rextester.com/l/r_online_compiler)
+      + [**RDRR.io**](https://rdrr.io/snippets)
+
+      + [**Rextexter**](https://rextester.com/l/r_online_compiler)
 
 ---
 
@@ -69,6 +73,7 @@ ev=table(rbinom(90,5,0.80)); barplot(ev, col=c("red","yellow","orange","green","
 
 ]
 
+Los anteriores ejemplos pueden ser ejecutados en cualquiera de las anternativas presentadas para usar **R**
 ---
 ## Graficos con R base
 
@@ -115,7 +120,7 @@ x=rnorm(100,100,20)
 y=rnorm(100,100,25)
 z=rbinom(100,4,0.30)
 t=1:100
-
+par(mfrow=c(1, 5))
 pie(table(z))
 barplot(table(z))
 stem(x)
@@ -124,6 +129,9 @@ boxplot(x)
 plot(x,y)
 plot(t,y, type="l")
 plot(density(x))
+
+
+
 ```
 
 https://rextester.com/CBC3320 <br/>
@@ -149,7 +157,7 @@ https://rdrr.io/snippets/
 
 + **Coordinates**: capa de coordenadas, permite ajustar las escalas de los ejes
 
-+ **Theme**: , capas de características del gráfico que no dependen de  los datos
++ **Theme**: capas de características del gráfico que no dependen de  los datos
 
 ]
 .pull-right[
@@ -203,6 +211,7 @@ ggplot(clasificacion, aes(x=off , y=def))+
 + geom_density()         stat_density()
 + geom_histogram()
 + geom_violin()
++ ...
 ]
 ---
 .pull-left[
@@ -258,6 +267,14 @@ grid.arrange(g1, g2, g3, nrow = 3)
 ---
 ## Gráficos con highcharter
 
+**Highcharter** 
+
+Estrutura general : 
+```{r, eval=FALSE}
+hchart(<data.frame>, <type_of_chart>, hcaes(<aesthetics>), ...)
+```
+
+---
 ```{r}
 library(magrittr)
 library(highcharter)
@@ -275,10 +292,10 @@ name = "Ventas en millones $")
 ```
 
 ---
-```{r, echo=FALSE, message=FALSE}
+```{r, message=FALSE, warning=FALSE}
 library(quantmod) # paquete de modelacion financiera
-x <- getFX("USD/JPY", auto.assign = FALSE)
-hc <- hchart(x)
+x = getFX("USD/JPY", auto.assign = FALSE)
+hc = hchart(x)
 hc
 ```
 ---
@@ -293,21 +310,21 @@ https://jkunst.com/highcharter/
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=15  }
 library(plotly)
-fig <- plot_ly(data = iris, x = ~Sepal.Length, y = ~Petal.Length,
-               marker = list(size = 10,
-                             color = 'rgba(255, 182, 193, .9)',
-                             line = list(color = 'rgba(152, 0, 0, .8)',
-                                         width = 2)))
-fig <- fig %>% layout(title = 'Longitud del sepalo vs longitud del petalo',
-         yaxis = list(zeroline = FALSE),
-         xaxis = list(zeroline = FALSE))
-
+fig= plot_ly(type='histogram',x=~rnorm(25, 10))
+fig= fig %>% add_trace(type='histogram', x=~rnorm(20, 10))
+fig= fig %>% layout(barmode="stack", bargap=0.05)
 fig
 ```
 
----
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=15 }
+---
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+plot_ly(y = ~clasificacion$off, type = "box", boxpoints = "all", jitter = 0.5, pointpos = -2)
+        
+```
+
+---
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=15 }
 trace_0 <- rnorm(100, mean = 5)
 trace_1 <- rnorm(100, mean = 0)
 trace_2 <- rnorm(100, mean = -5)
