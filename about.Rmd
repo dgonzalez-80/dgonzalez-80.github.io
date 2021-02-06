@@ -308,7 +308,7 @@ https://jkunst.com/highcharter/
 ---
 ## Gráficos con plotly
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE,fig.width=15 }
+```{r, echo=FALSE, message=FALSE, warning=FALSE,fig.height=8, fig.width=15}
 library(plotly)
 fig= plot_ly(type='histogram',x=~rnorm(25, 10))
 fig= fig %>% add_trace(type='histogram', x=~rnorm(20, 10))
@@ -318,13 +318,13 @@ fig
 
 
 ---
-```{r, echo=FALSE, message=FALSE, warning=FALSE,fig.width=15 }
+```{r, echo=FALSE, message=FALSE, warning=FALSE,fig.height=8, fig.width=15}
 plot_ly(y = ~clasificacion$off, type = "box", boxpoints = "all", jitter = 0.5, pointpos = -2)
         
 ```
 
 ---
-```{r, echo=FALSE, message=FALSE, warning=FALSE,fig.width=15 }
+```{r, echo=FALSE, message=FALSE, warning=FALSE,fig.height=8, fig.width=15}
 trace_0 <- rnorm(100, mean = 5)
 trace_1 <- rnorm(100, mean = 0)
 trace_2 <- rnorm(100, mean = -5)
