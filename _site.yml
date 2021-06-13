@@ -7,6 +7,5 @@ navbar:
       href: index.html
     - text: "About"
       href: about.html
-    - text: "Tablero"
-      href: dashboard1.html
+
       
